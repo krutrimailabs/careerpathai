@@ -36,7 +36,7 @@ export default function AssessmentLandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <Link href="/assessment/test">
+                  <Link href="/assessment/tests/interest">
                       <Button className="h-14 px-8 text-lg font-bold bg-[#FF9900] hover:bg-orange-600 text-white shadow-lg shadow-orange-500/20 transition-all hover:scale-105">
                           Start Free Assessment <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
@@ -178,7 +178,7 @@ export default function AssessmentLandingPage() {
                               
                               {/* CTA Overlay */}
                               <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px] flex items-center justify-center">
-                                   <Link href="/assessment/test">
+                                   <Link href="/assessment/tests/interest">
                                       <Button className="font-bold shadow-xl scale-125">Unlock Full Report</Button>
                                    </Link>
                               </div>

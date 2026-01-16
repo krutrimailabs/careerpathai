@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
@@ -26,28 +27,32 @@ export function HeroSection() {
                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                   </span>
-                  AI-Powered Counselling
+                  Backed by 10 Years of Data
                </div>
                
-               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] text-[#002147] tracking-tight">
-                  India&apos;s Most Trusted <br/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF9900] to-orange-600">
-                     Career Platform
+               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] text-[#002147] tracking-tight">
+                  Stop Guessing. <br/>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                     Start Knowing.
                   </span>
                </h1>
                
                <p className="text-lg text-zinc-600 max-w-lg leading-relaxed font-medium">
-                  Confused about your career? Get scientifically proven guidance for Class 9-12. 
-                  <span className="block mt-1 text-zinc-500 font-normal text-base">Explore 500+ Exams, 3000+ Colleges, & ₹500Cr Scholarships.</span>
+                  Discover your perfect career path based on your <b>Personality</b>, <b>Interests</b>, and <b>Aptitude</b>.
+                  <span className="block mt-1 text-zinc-500 font-normal text-base">Backed by modern psychology & AI.</span>
                </p>
                
-               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                  <Button size="lg" className="bg-[#FF9900] hover:bg-orange-600 text-white h-12 px-8 font-bold shadow-lg shadow-orange-500/20 transition-all hover:scale-105">
-                     Explore Colleges
-                  </Button>
-                  <Button variant="outline" className="h-12 px-6 text-[#002147] border-[#002147] bg-white/50 hover:bg-blue-50 font-semibold backdrop-blur-sm">
-                    Talk to Counselor
-                  </Button>
+               <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                  <Link href="/assessment/tests/interest">
+                     <Button size="lg" className="bg-[#FF9900] hover:bg-orange-600 text-white h-14 px-8 text-lg font-bold shadow-lg shadow-orange-500/20 transition-all hover:scale-105">
+                        Start Free Assessment
+                     </Button>
+                  </Link>
+                  <Link href="/assessment">
+                     <Button variant="outline" className="h-14 px-6 text-[#002147] border-[#002147] bg-white/50 hover:bg-blue-50 font-semibold backdrop-blur-sm">
+                        View Sample Report
+                     </Button>
+                  </Link>
                </div>
 
                {/* Social Proof */}
