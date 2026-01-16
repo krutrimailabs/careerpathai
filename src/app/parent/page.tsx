@@ -40,8 +40,8 @@ export default function ParentDashboard() {
            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
            <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col md:flex-row justify-between items-end gap-6">
                <div>
-                   <h1 className="text-3xl md:text-5xl font-black mb-2">My Child's Future Board</h1>
-                   <p className="text-blue-200 text-lg">Tracking <span className="font-bold text-white">Aarav's</span> career journey & safety.</p>
+                   <h1 className="text-3xl md:text-5xl font-black mb-2">My Child&apos;s Future Board</h1>
+                   <p className="text-blue-200 text-lg">Tracking <span className="font-bold text-white">Aarav&apos;s</span> career journey & safety.</p>
                </div>
                <div className="flex gap-3">
                    <Button variant="outline" className="text-[#002147] border-white font-bold bg-white hover:bg-blue-50">
@@ -116,7 +116,7 @@ export default function ParentDashboard() {
                               <YAxis tick={{fontSize: 12, fill: '#64748b'}} axisLine={false} tickFormatter={(value) => `₹${value/100000}L`} />
                               <Tooltip 
                                   contentStyle={{backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}}
-                                  formatter={(value: number) => [`₹${value.toLocaleString()}`, 'Amount']}
+                                  formatter={(value: number | undefined) => [`₹${(value || 0).toLocaleString()}`, 'Amount']}
                               />
                               <Line type="monotone" dataKey="cost" stroke="#ef4444" strokeWidth={2} name="Cumulative Cost" dot={false} />
                               <Line type="monotone" dataKey="earnings" stroke="#22c55e" strokeWidth={2} name="Cumulative Earnings" dot={false} />
@@ -151,7 +151,7 @@ export default function ParentDashboard() {
                       </ResponsiveContainer>
                       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-sm text-yellow-800 flex gap-3 mt-4">
                           <AlertTriangle className="w-5 h-5 shrink-0" />
-                          <p>Tip: Always check the 'Anti-Ragging Committee' contact on the college official website before finalizing admission.</p>
+                          <p>Tip: Always check the &apos;Anti-Ragging Committee&apos; contact on the college official website before finalizing admission.</p>
                       </div>
                   </CardContent>
               </Card>

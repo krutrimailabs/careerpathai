@@ -26,7 +26,7 @@ export function Navbar() {
           <Link href="/exams" className="hover:text-blue-600 transition-colors">Exam</Link>
           <Link href="/courses" className="hover:text-blue-600 transition-colors">Courses</Link>
           <Link href="/careers" className="hover:text-blue-600 transition-colors">Careers</Link>
-          <Link href="/news" className="hover:text-blue-600 transition-colors">Latest Updates</Link>
+            <Link href="/news" className="hover:text-blue-600 transition-colors">Latest Updates</Link>
           <div className="relative group">
             <button className="flex items-center gap-1 hover:text-blue-600 cursor-pointer py-2">
               More <ChevronDown className="w-4 h-4" />
@@ -35,6 +35,7 @@ export function Navbar() {
               <Link href="/assessment" className="block px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg text-sm">Career Compass</Link>
               <Link href="/mentors" className="block px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg text-sm">Mentors</Link>
               <Link href="/parent" className="block px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg text-sm">Parent Portal</Link>
+              <Link href="/dashboard" className="block px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg text-sm font-bold text-blue-600">Student Dashboard</Link>
               <Link href="/about" className="block px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg text-sm">About Us</Link>
               <Link href="/contact" className="block px-4 py-2 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg text-sm">Contact Us</Link>
             </div>
@@ -52,7 +53,9 @@ export function Navbar() {
             />
           </div>
           <div className="flex items-center gap-2 border-l pl-4 ml-2 border-zinc-200 dark:border-zinc-800">
-             <Button variant="ghost" size="sm" className="hidden lg:flex">Login</Button>
+             <Link href="/dashboard">
+                <Button variant="ghost" size="sm" className="hidden lg:flex">Dashboard</Button>
+             </Link>
              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">Sign Up</Button>
           </div>
         </div>

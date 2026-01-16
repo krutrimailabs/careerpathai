@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { MENTORS } from '@/data/mentors';
-import { Search, MapPin, Briefcase, Star, Filter, CheckCircle2 } from 'lucide-react';
+import { Search, Briefcase, Star, Filter } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 
 export default function MentorDirectoryPage() {

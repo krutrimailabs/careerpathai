@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Clock, CheckCircle2 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 
 export function BookingModal({ children, mentorName }: { children: React.ReactNode, mentorName: string }) {
   const [date, setDate] = useState<Date | undefined>(new Date());

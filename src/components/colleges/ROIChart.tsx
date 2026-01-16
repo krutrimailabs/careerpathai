@@ -5,6 +5,24 @@ import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, ZAxis, Toolti
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { College } from '@/types/college';
 
+// Custom Tooltip Component (Moved outside to prevent re-creation on render)
+const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: { payload: { name: string; fees: number; package: number; roi: number } }[] }) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-white p-3 border border-zinc-200 shadow-xl rounded-lg text-xs">
+        <p className="font-bold text-[#002147] mb-1">{data.name}</p>
+        <div className="space-y-1">
+           <p className="text-zinc-500">Fees: <span className="font-bold text-zinc-900">₹{data.fees.toFixed(1)}L</span></p>
+           <p className="text-zinc-500">Pkg: <span className="font-bold text-green-600">₹{data.package} LPA</span></p>
+           <p className="text-zinc-500">ROI Score: <span className="font-bold text-blue-600">{data.roi.toFixed(1)}x</span></p>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
 export function ROIChart({ colleges }: { colleges: College[] }) {
   // Transform data: Fees (Lakhs) vs Avg Package (Lpa)
   const data = colleges.map(c => ({
@@ -14,23 +32,6 @@ export function ROIChart({ colleges }: { colleges: College[] }) {
     roi: c.placement.avg_package_lpa / (c.financials.fees_per_year / 100000), // Simple ROI Metric
     type: c.overview.college_type
   }));
-
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-white p-3 border border-zinc-200 shadow-xl rounded-lg text-xs">
-          <p className="font-bold text-[#002147] mb-1">{data.name}</p>
-          <div className="space-y-1">
-             <p className="text-zinc-500">Fees: <span className="font-bold text-zinc-900">₹{data.fees.toFixed(1)}L</span></p>
-             <p className="text-zinc-500">Pkg: <span className="font-bold text-green-600">₹{data.package} LPA</span></p>
-             <p className="text-zinc-500">ROI Score: <span className="font-bold text-blue-600">{data.roi.toFixed(1)}x</span></p>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <Card className="shadow-lg border-zinc-200 overflow-hidden">

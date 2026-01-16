@@ -7,7 +7,7 @@ import { BookingModal } from '@/components/mentors/BookingModal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { Star, MapPin, Briefcase, GraduationCap, Linkedin, Globe, CheckCircle2 } from 'lucide-react';
+import { Star, Briefcase, GraduationCap, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MentorProfilePage() {
