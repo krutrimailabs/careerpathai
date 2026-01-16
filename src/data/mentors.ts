@@ -76,3 +76,39 @@ export const MENTORS: Mentor[] = [
     about: "Demystifying AI and ML for beginners. Let's build your portfolio."
   }
 ];
+
+export const MENTOR_SLOTS = [
+  { date: '2026-02-10', slots: ['10:00 AM', '02:00 PM', '04:00 PM'] },
+  { date: '2026-02-11', slots: ['11:00 AM', '03:00 PM'] },
+  { date: '2026-02-12', slots: ['09:00 AM', '05:00 PM'] },
+];
+
+export const USER_SESSIONS = [
+  {
+    id: 's1',
+    mentorId: 'm1',
+    mentorName: 'Aditi S.',
+    role: 'Senior Product Manager',
+    date: '2026-02-15',
+    time: '10:00 AM',
+    status: 'Upcoming',
+    meetingLink: 'https://meet.google.com/abc-defg-hij'
+  },
+  {
+    id: 's2',
+    mentorId: 'm2',
+    mentorName: 'Rahul V.',
+    role: 'SDE II',
+    date: '2026-01-20',
+    time: '02:00 PM',
+    status: 'Completed',
+    meetingLink: null
+  }
+];
+
+export const MENTOR_STATS = {
+  total_earnings: 45000,
+  sessions_conducted: 15,
+  upcoming_sessions: 3,
+  rating: 4.9
+};

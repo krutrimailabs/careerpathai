@@ -98,7 +98,7 @@ export const COLLEGES: College[] = [
       safety_score: 9.0
     },
     financials: {
-      fees_per_year: 1628, // Yes, AIIMS is very cheap
+      fees_per_year: 1628,
       scholarship_available: true,
       education_loan_partners: ['SBI'],
       refund_policy: 'Minimal fees, non-refundable'
@@ -106,13 +106,7 @@ export const COLLEGES: College[] = [
     reviews: {
       average_rating: 4.9,
       total_reviews: 800,
-      categories: {
-        infrastructure: 4.5,
-        academics: 5.0,
-        placements: 5.0,
-        campus_life: 4.2,
-        value_for_money: 5.0
-      }
+      categories: { infrastructure: 4.5, academics: 5.0, placements: 5.0, campus_life: 4.2, value_for_money: 5.0 }
     }
   },
   {
@@ -268,4 +262,48 @@ export const COLLEGES: College[] = [
       categories: { infrastructure: 4.8, academics: 5.0, placements: 4.8, campus_life: 4.9, value_for_money: 4.7 }
     }
   }
+];
+
+export const RANKINGS = {
+  Engineering: [
+    { rank: 1, id: '5', name: 'IIT Madras' },
+    { rank: 3, id: '1', name: 'IIT Bombay' },
+    { rank: 73, id: '4', name: 'COEP Pune' }
+  ],
+  Medical: [
+    { rank: 1, id: '2', name: 'AIIMS Delhi' }
+  ],
+  Research: [
+    { rank: 1, id: '3', name: 'IISC Bangalore' }
+  ]
+};
+
+export const COURSES = [
+  { 
+    slug: 'btech-cse', 
+    name: 'B.Tech in Computer Science', 
+    duration: '4 Years', 
+    avg_fees: '₹8-12 Lakhs', 
+    careers: ['Software Engineer', 'Data Scientist'] 
+  },
+  { 
+    slug: 'mbbs', 
+    name: 'Bachelor of Medicine (MBBS)', 
+    duration: '5.5 Years', 
+    avg_fees: '₹50k - ₹1Cr', 
+    careers: ['Doctor', 'Surgeon'] 
+  },
+  { 
+    slug: 'bs-data-science', 
+    name: 'BS in Data Science', 
+    duration: '4 Years', 
+    avg_fees: '₹3-6 Lakhs', 
+    careers: ['Data Analyst', 'Machine Learning Engineer'] 
+  }
+];
+
+export const PREDICTOR_DATA = [
+  { exam: 'JEE Main', rank_range: [1, 5000], colleges: ['IIT Bombay', 'IIT Delhi', 'IIT Madras'] },
+  { exam: 'JEE Main', rank_range: [5000, 15000], colleges: ['NIT Trichy', 'NIT Warangal', 'COEP Pune'] },
+  { exam: 'NEET', rank_range: [1, 100], colleges: ['AIIMS Delhi', 'JIPMER'] },
 ];
