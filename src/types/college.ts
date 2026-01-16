@@ -27,7 +27,7 @@ export interface CollegePlacement {
   highest_package_lpa: number;
   placement_percentage: number;
   top_recruiters: string[];
-  alumni_network_strength: 'Strong' | 'Average' | 'Growing';
+  alumni_network_strength: 'Strong' | 'Average' | 'Growing' | 'Elite' | 'Very Strong';
 }
 
 export interface CollegeCampusLife {

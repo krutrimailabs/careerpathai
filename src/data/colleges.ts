@@ -114,5 +114,158 @@ export const COLLEGES: College[] = [
         value_for_money: 5.0
       }
     }
+  },
+  {
+    id: '3',
+    slug: 'iisc-bangalore',
+    name: 'Indian Institute of Science, Bangalore',
+    short_description: 'India’s premier institute for advanced scientific and technological research and education.',
+    overview: {
+      nirf_rank: 1,
+      naac_grade: 'A++',
+      established_year: 1909,
+      college_type: 'Government',
+      campus_size_acres: 400,
+      location: 'Bangalore, Karnataka'
+    },
+    academics: {
+      courses_offered: ['B.Sc (Research)', 'M.Tech', 'PhD'],
+      specializations: ['Aerospace', 'Computer Science', 'Materials Eng'],
+      faculty_student_ratio: '1:8',
+      international_collaborations: ['Caltech', 'Imperial College London']
+    },
+    admission: {
+      exams_accepted: ['JEE Advanced', 'KVPY', 'GATE'],
+      reservation_policy: 'As per GoI norms',
+      application_process: ['Apply via Portal', 'Score Card', 'Interview'],
+      important_dates: [{ event: 'App Deadline', date: 'April 2026' }],
+      cutoff_trends: [{ year: 2025, cutoff: 'Rank 15 (JEE Adv)' }]
+    },
+    placement: {
+      avg_package_lpa: 35,
+      highest_package_lpa: 85,
+      placement_percentage: 92,
+      top_recruiters: ['Google DeepMind', 'ISRO', 'Airbus', 'Microsoft Research'],
+      alumni_network_strength: 'Elite'
+    },
+    campus_life: {
+      hostel_facilities: true,
+      sports_facilities: ['Gymkhana', 'Swimming Pool'],
+      clubs_committees: ['Pravega', 'Rhapsody'],
+      safety_score: 9.8
+    },
+    financials: {
+      fees_per_year: 30000,
+      scholarship_available: true,
+      education_loan_partners: ['SBI', 'Canara Bank'],
+      refund_policy: 'As per UGC'
+    },
+    reviews: {
+      average_rating: 4.9,
+      total_reviews: 450,
+      categories: { infrastructure: 5.0, academics: 5.0, placements: 4.5, campus_life: 4.6, value_for_money: 5.0 }
+    }
+  },
+  {
+    id: '4',
+    slug: 'coep-pune',
+    name: 'College of Engineering, Pune',
+    short_description: 'One of the oldest engineering colleges in Asia, known for its strong alumni network and student culture.',
+    overview: {
+      nirf_rank: 73,
+      naac_grade: 'A+',
+      established_year: 1854,
+      college_type: 'Government',
+      campus_size_acres: 36,
+      location: 'Pune, Maharashtra'
+    },
+    academics: {
+      courses_offered: ['B.Tech', 'M.Tech', 'MBA'],
+      specializations: ['Computer', 'Mechanical', 'E&TC', 'Civil'],
+      faculty_student_ratio: '1:18',
+      international_collaborations: ['Univ of Toronto']
+    },
+    admission: {
+      exams_accepted: ['MHT CET', 'JEE Main'],
+      reservation_policy: 'Maharashtra State quotas apply',
+      application_process: ['MHT CET Exam', 'CAP Rounds'],
+      important_dates: [{ event: 'MHT CET', date: 'May 2026' }],
+      cutoff_trends: [{ year: 2025, cutoff: '99.8%ile (CSE)' }]
+    },
+    placement: {
+      avg_package_lpa: 12.5,
+      highest_package_lpa: 52,
+      placement_percentage: 88,
+      top_recruiters: ['Credit Suisse', 'Deutsche Bank', 'Mastercard', 'Bajaj'],
+      alumni_network_strength: 'Very Strong'
+    },
+    campus_life: {
+      hostel_facilities: true,
+      sports_facilities: ['Boat Club', 'Ground'],
+      clubs_committees: ['MindSpark', 'Regatta', 'Robot Study Circle'],
+      safety_score: 9.2
+    },
+    financials: {
+      fees_per_year: 85000,
+      scholarship_available: true,
+      education_loan_partners: ['SBI'],
+      refund_policy: 'As per DTE'
+    },
+    reviews: {
+      average_rating: 4.6,
+      total_reviews: 2100,
+      categories: { infrastructure: 4.2, academics: 4.7, placements: 4.6, campus_life: 5.0, value_for_money: 4.8 }
+    }
+  },
+  {
+    id: '5',
+    slug: 'iit-madras',
+    name: 'Indian Institute of Technology, Madras',
+    short_description: 'Consistently ranked #1 in NIRF, known for its lush green campus and research ecosystem.',
+    overview: {
+      nirf_rank: 1,
+      naac_grade: 'A++',
+      established_year: 1959,
+      college_type: 'Government',
+      campus_size_acres: 617,
+      location: 'Chennai, Tamil Nadu'
+    },
+    academics: {
+      courses_offered: ['B.Tech', 'Dual Degree', 'PhD', 'BS Data Science'],
+      specializations: ['CSE', 'Electrical', 'Ocean Eng', 'Engineering Design'],
+      faculty_student_ratio: '1:10',
+      international_collaborations: ['RWTH Aachen', 'Purdue']
+    },
+    admission: {
+      exams_accepted: ['JEE Advanced', 'GATE'],
+      reservation_policy: 'GoI Norms',
+      application_process: ['JoSAA Counselling'],
+      important_dates: [{ event: 'JEE Adv', date: 'May 2026' }],
+      cutoff_trends: [{ year: 2025, cutoff: 'Rank 140' }]
+    },
+    placement: {
+      avg_package_lpa: 26,
+      highest_package_lpa: 180,
+      placement_percentage: 94,
+      top_recruiters: ['Texas Instruments', 'Qualcomm', 'Goldman Sachs'],
+      alumni_network_strength: 'Strong'
+    },
+    campus_life: {
+      hostel_facilities: true,
+      sports_facilities: ['Stadium', 'Pool', 'Student Activity Center'],
+      clubs_committees: ['Shaastra', 'Saarang', 'CFI'],
+      safety_score: 9.6
+    },
+    financials: {
+      fees_per_year: 220000,
+      scholarship_available: true,
+      education_loan_partners: ['SBI'],
+      refund_policy: 'UGC Norms'
+    },
+    reviews: {
+      average_rating: 4.8,
+      total_reviews: 1400,
+      categories: { infrastructure: 4.8, academics: 5.0, placements: 4.8, campus_life: 4.9, value_for_money: 4.7 }
+    }
   }
 ];
