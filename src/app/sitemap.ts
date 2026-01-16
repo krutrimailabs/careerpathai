@@ -5,8 +5,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://nextcareer.in";
 
   // Fetch all careers and colleges
-  const { data: careers } = await supabase.schema('careerpath').from('careers').select('slug, created_at');
-  const { data: colleges } = await supabase.schema('careerpath').from('colleges').select('slug, created_at');
+  const { data: careers } = await supabase.from('careers').select('slug, created_at');
+  const { data: colleges } = await supabase.from('colleges').select('slug, created_at');
 
   const careerUrls = (careers || []).map((c) => ({
     url: `${baseUrl}/careers/${c.slug}`,

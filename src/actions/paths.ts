@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function getPaths() {
   const { data, error } = await supabase
-    .schema('careerpath')
+    
     .from('careers')
     .select('*')
     .order('created_at', { ascending: false });
@@ -23,7 +23,7 @@ export async function createPath(formData: FormData) {
   const slug = formData.get('slug') as string;
   const category = formData.get('category') as string;
 
-  const { error } = await supabase.schema('careerpath').from('careers').insert({
+  const { error } = await supabase.from('careers').insert({
     title,
     slug,
     category,
@@ -41,7 +41,7 @@ import { RIASECScore } from "@/lib/ai-engine";
 
 export async function updateCareerWeights(id: string, scores: RIASECScore) {
   const { error } = await supabase
-    .schema('careerpath')
+    
     .from('careers')
     .update({ riasec_scores: scores })
     .eq('id', id);

@@ -11,7 +11,7 @@ export default async function EditCareerPage({ params }: PageProps) {
   const { slug } = await params;
 
   const { data: career } = await supabase
-    .schema('careerpath')
+    
     .from('careers')
     .select('*')
     .eq('slug', slug)

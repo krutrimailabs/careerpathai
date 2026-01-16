@@ -3,13 +3,13 @@ import { Metadata } from 'next';
 import CareerProfileClient from "@/components/career/CareerProfileClient";
 
 export async function generateStaticParams() {
-  const { data: paths } = await supabase.schema('careerpath').from('careers').select('slug');
+  const { data: paths } = await supabase.from('careers').select('slug');
   return (paths || []).map((path) => ({ slug: path.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const { data: career } = await supabase.schema('careerpath').from('careers').select('title, category').eq('slug', slug).single();
+  const { data: career } = await supabase.from('careers').select('title, category').eq('slug', slug).single();
 
   if (!career) return { title: 'Career Not Found' };
 

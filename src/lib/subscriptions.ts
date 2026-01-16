@@ -23,7 +23,7 @@ export const PLANS = {
 
 export async function getUserSubscription(userId: string) {
   const { data, error } = await supabase
-    .schema('careerpath')
+    
     .from('subscriptions')
     .select('*')
     .eq('user_id', userId)

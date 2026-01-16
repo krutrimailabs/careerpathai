@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function getMentors() {
   const { data, error } = await supabase
-    .schema('careerpath')
+    
     .from('mentors')
     .select('*')
     .order('created_at', { ascending: false });
@@ -25,7 +25,7 @@ export async function createMentor(formData: FormData) {
   const experience = formData.get('experience') as string;
   const about = formData.get('about') as string;
 
-  const { error } = await supabase.schema('careerpath').from('mentors').insert({
+  const { error } = await supabase.from('mentors').insert({
     name,
     role,
     company,
@@ -47,7 +47,7 @@ export async function createMentor(formData: FormData) {
 
 export async function deleteMentor(id: string) {
   const { error } = await supabase
-    .schema('careerpath')
+    
     .from('mentors')
     .delete()
     .eq('id', id);
@@ -62,7 +62,7 @@ export async function deleteMentor(id: string) {
 
 export async function verifyMentor(id: string) {
   const { error } = await supabase
-    .schema('careerpath')
+    
     .from('mentors')
     .update({ 
         is_verified: true,

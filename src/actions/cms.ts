@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function getPosts() {
   const { data, error } = await supabase
-    .schema('careerpath')
+    
     .from('blogs')
     .select('*')
     .order('created_at', { ascending: false });
@@ -24,7 +24,7 @@ export async function createPost(formData: FormData) {
   const content = formData.get('content') as string;
   const status = formData.get('status') as string || 'draft';
 
-  const { error } = await supabase.schema('careerpath').from('blogs').insert({
+  const { error } = await supabase.from('blogs').insert({
     title,
     slug,
     content,
@@ -42,7 +42,7 @@ export async function createPost(formData: FormData) {
 
 export async function deletePost(id: string) {
   const { error } = await supabase
-    .schema('careerpath')
+    
     .from('blogs')
     .delete()
     .eq('id', id);

@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function getColleges() {
   const { data, error } = await supabase
-    .schema('careerpath')
+    
     .from('colleges')
     .select('*')
     .order('created_at', { ascending: false });
@@ -24,7 +24,7 @@ export async function createCollege(formData: FormData) {
   const city = formData.get('city') as string;
   const state = formData.get('state') as string;
 
-  const { error } = await supabase.schema('careerpath').from('colleges').insert({
+  const { error } = await supabase.from('colleges').insert({
     name,
     slug,
     city,

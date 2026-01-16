@@ -3,13 +3,13 @@ import { Metadata } from 'next';
 import CollegeProfileClient from "@/components/colleges/CollegeProfileClient";
 
 export async function generateStaticParams() {
-  const { data: colleges } = await supabase.schema('careerpath').from('colleges').select('slug');
+  const { data: colleges } = await supabase.from('colleges').select('slug');
   return (colleges || []).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const { data: college } = await supabase.schema('careerpath').from('colleges').select('name, city, state').eq('slug', slug).single();
+  const { data: college } = await supabase.from('colleges').select('name, city, state').eq('slug', slug).single();
 
   if (!college) return { title: 'College Not Found' };
 

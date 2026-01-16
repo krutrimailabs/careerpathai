@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase";
 // src/lib/admin-utils.ts
 export async function bulkUpdateCollegeROI() {
   const { data: colleges, error } = await supabase
-    .schema('careerpath')
+    
     .from('colleges')
     .select('id, fees, avg_placement');
 
@@ -19,7 +19,7 @@ export async function bulkUpdateCollegeROI() {
     const roiScore = (college.avg_placement || 0) / fees;
     
     return supabase
-      .schema('careerpath')
+      
       .from('colleges')
       .update({ roi_score: roiScore }) 
       .eq('id', college.id);
