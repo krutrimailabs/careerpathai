@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Star, ArrowRight, Bell, Target, TrendingUp } from 'lucide-react';
+import { Calendar, Star, ArrowRight, Target, TrendingUp } from 'lucide-react';
 import { COLLEGES } from '@/data/colleges'; // Mock data
 
 export default function StudentDashboard() {
@@ -22,24 +22,6 @@ export default function StudentDashboard() {
   return (
     <div className="min-h-screen bg-zinc-50 font-sans pb-20">
       
-      {/* 1. HEADER */}
-      <div className="bg-white border-b border-zinc-200 sticky top-16 z-30">
-        <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
-             <div>
-                 <h1 className="text-xl md:text-2xl font-black text-[#002147]">Dashboard</h1>
-                 <p className="text-sm text-zinc-500">Welcome back, <span className="font-bold text-zinc-900">Aarav</span> 👋</p>
-             </div>
-             <div className="flex gap-4">
-                 <Button variant="outline" size="icon" className="rounded-full relative border-zinc-200">
-                     <Bell className="w-5 h-5 text-zinc-600" />
-                     <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
-                 </Button>
-                 <div className="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center font-bold text-blue-800 border-2 border-white shadow-sm">
-                     AS
-                 </div>
-             </div>
-        </div>
-      </div>
 
       <div className="container mx-auto px-4 md:px-6 py-8 space-y-8">
           
