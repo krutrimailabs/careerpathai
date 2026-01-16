@@ -1,17 +1,18 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent } from "@/components/ui/card";
-import { UserCheck, CheckCircle, Coins } from "lucide-react";
+import { UserCheck, CheckCircle, Coins, Award } from "lucide-react";
 
 export function StatsSection() {
   return (
-      <section className="-mt-16 container mx-auto px-4 md:px-6 relative z-20 mb-20">
-         <div className="grid md:grid-cols-4 gap-4">
-            <StatsBox count="40,00,000" label="Students Counselled" icon={UserCheck} />
-            <StatsBox count="1,00,000+" label="Admissions taken" icon={CheckCircle} />
-            <StatsBox count="500 Cr+" label="Scholarships Unlocked" icon={Coins} />
-            <StatsBox count="1500+" label="Expert Mentors" icon={UserCheck} />
+      <section className="bg-white border-b border-zinc-200">
+         <div className="container mx-auto px-4 md:px-6">
+             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-zinc-200 border-x border-zinc-200">
+                <StatsBox count="40L+" label="Students Counselled" icon={UserCheck} />
+                <StatsBox count="1L+" label="Admissions Secured" icon={CheckCircle} />
+                <StatsBox count="₹500Cr+" label="Scholarships Unlocked" icon={Coins} />
+                <StatsBox count="1500+" label="Expert Mentors" icon={Award} />
+             </div>
          </div>
       </section>
   );
@@ -19,14 +20,14 @@ export function StatsSection() {
 
 function StatsBox({ count, label, icon: Icon }: { count: string, label: string, icon: React.ElementType }) {
     return (
-        <Card className="text-center py-6 hover:-translate-y-1 transition-transform border-0 shadow-lg">
-            <CardContent className="flex flex-col items-center p-0">
-                <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-3">
-                    <Icon className="w-6 h-6 text-blue-600" />
+        <div className="flex items-center justify-center p-6 md:py-8 group hover:bg-zinc-50/50 transition-colors">
+            <div className="flex flex-col items-center text-center gap-2">
+                <div className="flex items-center gap-3 mb-1">
+                    <Icon className="w-5 h-5 text-zinc-400 group-hover:text-blue-600 transition-colors" />
+                    <span className="text-3xl md:text-4xl font-extrabold text-zinc-900 tracking-tight">{count}</span>
                 </div>
-                <div className="text-2xl font-bold">{count}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-wide mt-1">{label}</div>
-            </CardContent>
-        </Card>
+                <div className="text-sm font-medium text-zinc-500 uppercase tracking-wide">{label}</div>
+            </div>
+        </div>
     )
 }
