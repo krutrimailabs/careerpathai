@@ -15,6 +15,7 @@ export type Mentor = {
 };
 
 export const MENTORS: Mentor[] = [
+
   {
     id: "m1",
     name: "Aditi S.",
@@ -27,7 +28,7 @@ export const MENTORS: Mentor[] = [
     rating: 4.9,
     reviews: 120,
     hourly_rate: 2500,
-    image: "/avatars/mentor1.jpg",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Aditi",
     about: "I help aspiring PMs crack interviews at top tech companies. Ex-Microsoft."
   },
   {
@@ -42,7 +43,7 @@ export const MENTORS: Mentor[] = [
     rating: 4.8,
     reviews: 85,
     hourly_rate: 1500,
-    image: "/avatars/mentor2.jpg",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul",
     about: "Passionate about coding and helping students master Data Structures."
   },
   {
@@ -57,7 +58,7 @@ export const MENTORS: Mentor[] = [
     rating: 5.0,
     reviews: 200,
     hourly_rate: 3500,
-    image: "/avatars/mentor3.jpg",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sneha",
     about: "Helping you break into MBB consulting. Expert in case frameworks."
   },
   {
@@ -72,7 +73,7 @@ export const MENTORS: Mentor[] = [
     rating: 4.7,
     reviews: 60,
     hourly_rate: 3000,
-    image: "/avatars/mentor4.jpg",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Vikram",
     about: "Demystifying AI and ML for beginners. Let's build your portfolio."
   }
 ];
