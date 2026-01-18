@@ -2,7 +2,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { IndianRupee, Users, Star, Calendar } from 'lucide-react';
-import { MENTOR_STATS } from '@/data/mentors';
+// Mock stats for dashboard
+const MENTOR_STATS = {
+  total_earnings: 45000,
+  sessions_conducted: 15,
+  upcoming_sessions: 3,
+  rating: 4.9
+};
 
 export default function MentorDashboardPage() {
   return (

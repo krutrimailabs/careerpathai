@@ -1,15 +1,13 @@
-import { supabase } from "@/lib/supabase";
+import { createClient } from '@/utils/supabase/server';
 import { Metadata } from 'next';
 import CareerProfileClient from "@/components/career/CareerProfileClient";
-
-export async function generateStaticParams() {
-  const { data: paths } = await supabase.from('careers').select('slug');
-  return (paths || []).map((path) => ({ slug: path.slug }));
-}
+import { CareerProfile } from '@/types/career';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const { data: career } = await supabase.from('careers').select('title, category').eq('slug', slug).single();
+  const supabase = await createClient();
+  const { data: career } = await supabase.schema('careerpath').from('careers').select('title, category').eq('slug', slug).single();
 
   if (!career) return { title: 'Career Not Found' };
 
@@ -23,6 +21,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default function CareerProfilePage() {
-  return <CareerProfileClient />;
+export default async function CareerProfilePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const supabase = await createClient();
+  const { data: careerData } = await supabase.schema('careerpath').from('careers').select('*').eq('slug', slug).single();
+
+  if (!careerData) {
+    notFound();
+  }
+
+  const career: CareerProfile = {
+      id: careerData.id,
+      slug: careerData.slug,
+      title: careerData.title,
+      category: careerData.category as CareerProfile['category'],
+      short_description: careerData.short_description,
+      overview: careerData.overview,
+      path_to_become: careerData.path_to_become,
+      financials: careerData.financials,
+      skills: careerData.skills,
+      job_market: careerData.job_market,
+      related_careers: careerData.related_careers
+  };
+
+  return <CareerProfileClient career={career} />;
 }

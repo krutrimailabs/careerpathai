@@ -7,7 +7,32 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Calendar, IndianRupee, Award, ExternalLink } from "lucide-react";
-import { scholarships } from "@/data/scholarships";
+const scholarships = [
+    {
+        id: '1', 
+        slug: 'reliance-foundation-scholarship',
+        name: 'Reliance Foundation Scholarship 2024',
+        provider: 'Reliance Foundation',
+        category: 'Merit-cum-Means',
+        amount: '₹2,00,000 - ₹6,00,000',
+        deadline: '15th Oct 2024',
+        eligibility: 'Open for undergraduate and postgraduate students. Must have secured 60% in 12th.',
+        exams: ['JEE Mains', 'NEET'],
+        colleges: ['BITS Pilani', 'IIT Bombay']
+    },
+    {
+        id: '2',
+        slug: 'hdfc-badhte-kadam',
+        name: 'HDFC Badhte Kadam Scholarship',
+        provider: 'HDFC Bank',
+        category: 'Need-based',
+        amount: '₹1,00,000',
+        deadline: '30th Sep 2024',
+        eligibility: 'For students who have lost earning family members or are facing financial crisis.',
+        exams: [],
+        colleges: []
+    }
+];
 
 export default function ScholarshipDetailPage({ params }: { params: { slug: string } }) {
     const scholarship = scholarships.find(s => s.slug === params.slug);

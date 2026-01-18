@@ -38,6 +38,7 @@ export function AdminSidebar() {
       label: "Content (CMS)",
       items: [
          { href: '/admin/content/careers', label: 'Careers', icon: FileText },
+         { href: '/admin/content/careers/categories', label: 'Car. Categories', icon: FileText },
          { href: '/admin/content/colleges', label: 'Colleges', icon: Building2 },
          { href: '/admin/cms', label: 'Blog Posts', icon: FileText },
          { href: '/admin/exams', label: 'Exams', icon: FileText },

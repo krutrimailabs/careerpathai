@@ -3,7 +3,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Video, Calendar, Clock, Star } from 'lucide-react';
-import { USER_SESSIONS } from '@/data/mentors';
+const USER_SESSIONS = [
+  { id: 1, mentorName: 'Dr. Emily Chen', role: 'Psychologist', date: 'Oct 24, 2023', time: '10:00 AM', status: 'Upcoming' },
+  { id: 2, mentorName: 'Mark Thompson', role: 'Career Coach', date: 'Oct 20, 2023', time: '2:00 PM', status: 'Completed' }
+];
 
 export default function SessionsPage() {
   const upcoming = USER_SESSIONS.filter(s => s.status === 'Upcoming');

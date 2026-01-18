@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Mail, Lock, Loader2 } from "lucide-react";
 import { useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,16 +18,32 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent, role: string) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    const email = (document.getElementById(`email-${role}`) as HTMLInputElement).value;
+    const password = (document.getElementById(`password-${role}`) as HTMLInputElement).value;
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    });
+
+    if (error) {
         setIsLoading(false);
-        if (role === 'student') {
-            router.push('/dashboard');
-        } else if (role === 'parent') {
-            router.push('/parent');
-        }
-    }, 1500);
+        // Ensure you have a way to show errors, e.g., toast or alert
+        alert(error.message); // Temporary simple error handling
+        return;
+    }
+
+    // Auth state listener or middleware will handle redirect, but for UX speed:
+    router.refresh(); // Refresh server components
+    if (role === 'student') {
+        router.push('/dashboard');
+    } else if (role === 'parent') {
+        router.push('/parent');
+    } else {
+        router.push('/dashboard');
+    }
   };
 
   return (

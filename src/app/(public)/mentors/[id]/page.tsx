@@ -1,21 +1,35 @@
-'use client';
-
 import React from 'react';
-import { useParams } from 'next/navigation';
-import { MENTORS } from '@/data/mentors';
+import { createClient } from '@/utils/supabase/server';
 import { BookingModal } from '@/components/mentors/BookingModal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, Briefcase, GraduationCap, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-export default function MentorProfilePage() {
-  const params = useParams();
-  const id = params?.id as string;
-  const mentor = MENTORS.find(m => m.id === id);
+export default async function MentorProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const supabase = await createClient();
 
-  if (!mentor) return <div>Mentor not found</div>;
+  const { data: mentor, error } = await supabase
+    .schema('careerpath')
+    .from('mentors')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error || !mentor) {
+      notFound();
+  }
+
+  // Fetch similar mentors (just random others for now)
+  const { data: similarMentors } = await supabase
+    .schema('careerpath')
+    .from('mentors')
+    .select('id, name, role, company, company_logo')
+    .neq('id', id)
+    .limit(3);
 
   return (
     <div className="min-h-screen bg-zinc-50 font-sans pb-20">
@@ -39,13 +53,13 @@ export default function MentorProfilePage() {
                         <p className="text-xl text-zinc-600 font-medium mb-4">{mentor.role} at <span className="text-[#002147] font-bold">{mentor.company}</span></p>
                         
                         <div className="flex flex-wrap gap-6 text-sm text-zinc-500 font-medium mb-6">
-                            <div className="flex items-center gap-2"><Briefcase className="w-4 h-4" /> {mentor.experience} Exp</div>
+                            <div className="flex items-center gap-2"><Briefcase className="w-4 h-4" /> {mentor.experience || 'N/A'} Exp</div>
                             <div className="flex items-center gap-2"><GraduationCap className="w-4 h-4" /> {mentor.education}</div>
                             <div className="flex items-center gap-2 text-orange-600 font-bold"><Star className="w-4 h-4 fill-current" /> {mentor.rating} ({mentor.reviews} Reviews)</div>
                         </div>
 
                         <div className="flex flex-wrap gap-2">
-                            {mentor.expertise.map(skill => (
+                            {mentor.expertise?.map((skill: string) => (
                                 <Badge key={skill} variant="secondary" className="bg-zinc-100 text-zinc-600">{skill}</Badge>
                             ))}
                         </div>
@@ -115,7 +129,7 @@ export default function MentorProfilePage() {
                 <aside className="space-y-6">
                     <h3 className="text-xl font-bold text-[#002147]">Similar Mentors</h3>
                     <div className="space-y-4">
-                        {MENTORS.filter(m => m.id !== mentor.id).slice(0, 3).map(m => (
+                        {similarMentors?.map((m: { id: string; name: string; role: string; company: string; company_logo?: string }) => (
                             <Link href={`/mentors/${m.id}`} key={m.id}>
                                 <div className="flex items-center gap-3 p-4 bg-white rounded-xl border border-zinc-200 hover:shadow-md transition-all mb-3 cursor-pointer">
                                     <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center font-bold text-[#002147] text-sm shrink-0">

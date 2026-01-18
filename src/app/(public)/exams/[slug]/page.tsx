@@ -5,15 +5,37 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Calendar, Download, ExternalLink, BookOpen, AlertCircle } from 'lucide-react';
-import { EXAMS } from '@/data/exams';
+import { createClient } from '@/utils/supabase/server';
+import { Exam } from '@/types/exam';
 
 export default async function ExamDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const exam = EXAMS.find((e) => e.slug === slug);
+  const supabase = await createClient();
 
-  if (!exam) {
+  const { data: examData } = await supabase
+    .schema('careerpath')
+    .from('exams')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (!examData) {
     notFound();
   }
+
+  const exam: Exam = {
+      id: examData.id,
+      slug: examData.slug,
+      title: examData.title,
+      category: examData.category,
+      date: examData.exam_date,
+      applicationDeadline: examData.application_deadline,
+      description: examData.description,
+      eligibility: examData.eligibility,
+      syllabus: (examData.syllabus as unknown) as Exam['syllabus'] || [],
+      prepMaterials: (examData.prep_materials as unknown) as Exam['prepMaterials'] || [],
+      notifications: (examData.notifications as unknown) as Exam['notifications'] || []
+  };
 
   return (
     <div className="min-h-screen bg-zinc-50 pb-20">

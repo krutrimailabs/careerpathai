@@ -3,9 +3,31 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar as CalendarIcon, ArrowRight, Bell } from 'lucide-react';
-import { EXAMS } from '@/data/exams';
+import { createClient } from '@/utils/supabase/server';
+import { Exam } from '@/types/exam';
 
-export default function ExamsPage() {
+export default async function ExamsPage() {
+  const supabase = await createClient();
+  const { data: examsData } = await supabase
+    .schema('careerpath')
+    .from('exams')
+    .select('*')
+    .order('exam_date', { ascending: true });
+
+  const exams: Exam[] = (examsData || []).map((item) => ({
+      id: item.id,
+      slug: item.slug,
+      title: item.title,
+      category: item.category,
+      date: item.exam_date,
+      applicationDeadline: item.application_deadline,
+      description: item.description,
+      eligibility: item.eligibility,
+      syllabus: (item.syllabus as unknown) as Exam['syllabus'] || [],
+      prepMaterials: (item.prep_materials as unknown) as Exam['prepMaterials'] || [],
+      notifications: (item.notifications as unknown) as Exam['notifications'] || []
+  }));
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
@@ -19,7 +41,7 @@ export default function ExamsPage() {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
-         {EXAMS.map((exam) => (
+         {exams.map((exam) => (
              <Card key={exam.id} className="hover:shadow-lg transition-all border-l-4 border-l-blue-600">
                 <CardHeader>
                    <div className="flex justify-between items-start mb-2">

@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useParams } from 'next/navigation';
-import { CAREERS } from '@/data/careers';
+import Link from 'next/link';
 import { InteractiveCareerMap } from '@/components/career/InteractiveCareerMap';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,12 +10,13 @@ import { Input } from '@/components/ui/input';
 import {  Target, Award, Share2, Wallet, MapPin, ArrowRight,
   TrendingUp, IndianRupee, BookOpen
 } from 'lucide-react';
-import Link from 'next/link';
+import { CareerProfile } from '@/types/career';
 
+interface CareerProfileClientProps {
+  career: CareerProfile;
+}
 
-export default function CareerProfileClient() {
-  const { slug } = useParams();
-  const career = CAREERS.find(c => c.slug === slug);
+export default function CareerProfileClient({ career }: CareerProfileClientProps) {
   const [activeTab, setActiveTab] = useState('overview');
 
   // ROI Calculator State

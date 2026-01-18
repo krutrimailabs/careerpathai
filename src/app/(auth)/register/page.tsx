@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { User, Users, Loader2 } from "lucide-react";
+import { createClient } from '@/utils/supabase/client';
 
 export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,11 +17,35 @@ export default function RegisterPage() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate API call
-    setTimeout(() => {
+
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement).value;
+    const firstName = (document.getElementById("first-name") as HTMLInputElement).value;
+    const lastName = (document.getElementById("last-name") as HTMLInputElement).value;
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+            data: {
+                full_name: `${firstName} ${lastName}`,
+                role: role,
+            },
+            emailRedirectTo: `${location.origin}/auth/callback`,
+        },
+    });
+
+    if (error) {
         setIsLoading(false);
-        // Redirect logic would go here
-    }, 1500);
+        alert(error.message);
+        return;
+    }
+
+    setIsLoading(false);
+    // Notify user to check email
+    alert("Please check your email to confirm your account.");
+    // Optionally redirect to a confirmation page
   };
 
   return (

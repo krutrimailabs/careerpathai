@@ -18,18 +18,27 @@ export async function getPosts() {
   return data;
 }
 
+import { createClient } from '@/utils/supabase/server';
+
 export async function createPost(formData: FormData) {
   const title = formData.get('title') as string;
   const slug = formData.get('slug') as string;
   const content = formData.get('content') as string;
   const status = formData.get('status') as string || 'draft';
 
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error('Unauthorized');
+  }
+
   const { error } = await supabase.from('blogs').insert({
     title,
     slug,
     content,
     status,
-    // author_id: TODO: Add auth user id
+    author_id: user.id
   });
 
   if (error) {
