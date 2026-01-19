@@ -18,21 +18,22 @@ export default function CategoriesAdminPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState('');
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
-
-  const fetchCategories = async () => {
-    const { data } = await supabase.from('career_categories').select('*').order('name');
-    if (data) setCategories(data);
-    setLoading(false);
-  };
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.from('career_categories').select('*').order('name');
+      if (data) setCategories(data);
+      setLoading(false);
+    };
     fetchCategories();
-  }, []);
+  }, [refreshTrigger]);
 
   const handleAdd = async () => {
     if (!newCategory.trim()) return;
     const slug = newCategory.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
+    const supabase = createClient();
     
     const { error } = await supabase.from('career_categories').insert([{ name: newCategory, slug }]);
     
@@ -41,17 +42,18 @@ export default function CategoriesAdminPage() {
     } else {
       toast.success('Category added');
       setNewCategory('');
-      fetchCategories();
+      setRefreshTrigger(prev => prev + 1);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure?')) return;
+    const supabase = createClient();
     const { error } = await supabase.from('career_categories').delete().eq('id', id);
     if (error) toast.error('Failed to delete');
     else {
       toast.success('Deleted');
-      fetchCategories();
+      setRefreshTrigger(prev => prev + 1);
     }
   };
 

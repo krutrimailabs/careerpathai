@@ -9,7 +9,7 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Plus, Search, Trash, Star, CheckCircle } from "lucide-react";
+import { Plus, Search, Trash, Star } from "lucide-react";
 import { getMentors, createMentor, deleteMentor, verifyMentor } from "@/actions/mentors";
 
 interface Mentor {
@@ -71,7 +71,7 @@ export default async function MentorsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {mentors.map((mentor: any) => (
+            {mentors.map((mentor) => (
               <TableRow key={mentor.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">

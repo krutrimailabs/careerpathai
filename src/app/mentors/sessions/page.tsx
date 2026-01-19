@@ -1,16 +1,70 @@
+import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Video, Calendar, Clock, Star } from 'lucide-react';
-const USER_SESSIONS = [
-  { id: 1, mentorName: 'Dr. Emily Chen', role: 'Psychologist', date: 'Oct 24, 2023', time: '10:00 AM', status: 'Upcoming' },
-  { id: 2, mentorName: 'Mark Thompson', role: 'Career Coach', date: 'Oct 20, 2023', time: '2:00 PM', status: 'Completed' }
-];
+import { format } from 'date-fns';
 
-export default function SessionsPage() {
-  const upcoming = USER_SESSIONS.filter(s => s.status === 'Upcoming');
-  const past = USER_SESSIONS.filter(s => s.status === 'Completed');
+interface BookingWithMentor {
+  id: string;
+  date: string;
+  time: string;
+  status: string;
+  mentors: {
+    name: string;
+    role: string;
+    image: string | null;
+  } | {
+    name: string;
+    role: string;
+    image: string | null;
+  }[] | null;
+}
+
+export default async function SessionsPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/login?next=/mentors/sessions');
+  }
+
+  const { data: sessionsData } = await supabase
+    .schema('careerpath')
+    .from('mentor_bookings')
+    .select(`
+      id,
+      date,
+      time,
+      status,
+      mentors (
+        name,
+        role,
+        image
+      )
+    `)
+    .eq('user_id', user.id)
+    .order('date', { ascending: true });
+
+
+
+  const sessions = (sessionsData as unknown as BookingWithMentor[] || []).map((booking) => {
+    const mentor = Array.isArray(booking.mentors) ? booking.mentors[0] : booking.mentors;
+    return {
+      id: booking.id,
+      mentorName: mentor?.name || 'Unknown Mentor',
+      role: mentor?.role || 'Mentor',
+      date: format(new Date(booking.date), 'MMM d, yyyy'),
+      time: booking.time,
+      status: booking.status === 'upcoming' ? 'Upcoming' : 'Completed', // Normalize status case
+      image: mentor?.image
+    };
+  });
+
+  const upcoming = sessions.filter(s => s.status === 'Upcoming');
+  const past = sessions.filter(s => s.status === 'Completed');
 
   return (
     <div className="min-h-screen bg-zinc-50 py-12">
@@ -29,6 +83,7 @@ export default function SessionsPage() {
                                 <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-6">
                                     <div className="flex items-center gap-4">
                                         <Avatar className="h-12 w-12">
+                                            {/* <AvatarImage src={session.image} /> */}
                                             <AvatarFallback>{session.mentorName[0]}</AvatarFallback>
                                         </Avatar>
                                         <div>
@@ -53,7 +108,10 @@ export default function SessionsPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="p-8 bg-white rounded-xl border text-center text-zinc-500">No upcoming sessions.</div>
+                    <div className="p-8 bg-white rounded-xl border text-center text-zinc-500">
+                      No upcoming sessions. <br/>
+                      <Button variant="link" className="mt-2">Book a Mentor</Button>
+                    </div>
                 )}
             </section>
 

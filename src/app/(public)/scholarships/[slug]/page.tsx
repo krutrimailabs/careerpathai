@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Calendar, IndianRupee, Award, ExternalLink } from "lucide-react";
+import { ArrowLeft, Calendar, Award, ExternalLink } from "lucide-react";
 const scholarships = [
     {
         id: '1', 

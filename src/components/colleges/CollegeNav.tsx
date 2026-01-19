@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BookOpen, GraduationCap, Briefcase, Building2, Info, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
