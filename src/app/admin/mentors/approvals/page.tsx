@@ -9,8 +9,9 @@ import {
   TableRow 
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Plus, Search, Trash, Star } from "lucide-react";
-import { getMentors, createMentor, deleteMentor, verifyMentor } from "@/actions/mentors";
+import { EditDialog } from "@/components/admin/EditDialog";
+import { Plus, Search, Trash2, Star } from "lucide-react";
+import { getMentors, createMentor, deleteMentor, verifyMentor, updateMentor } from "@/actions/mentors";
 
 interface Mentor {
   id: string;
@@ -100,9 +101,10 @@ export default async function MentorsPage() {
                             </Button>
                         </form>
                     )}
+                    <EditDialog item={mentor} type="mentor" action={updateMentor} />
                     <form action={deleteMentor.bind(null, mentor.id)}>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-500 hover:text-red-600">
-                        <Trash className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4" />
                         </Button>
                     </form>
                   </div>

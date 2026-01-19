@@ -1,96 +1,90 @@
 'use server';
 
 import { supabase } from '@/lib/supabase';
-import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { ExamSchema } from '@/lib/schemas';
+import { createClient } from '@/utils/supabase/server';
+import { CategorySchema } from '@/lib/schemas';
 
-export async function getExams() {
+export async function getCategories() {
   const { data, error } = await supabase
-    .from('exams') // public schema is default
+    .from('career_categories')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('name');
 
   if (error) {
-    console.error('Error fetching exams:', error);
+    console.error('Error fetching categories:', error);
     return [];
   }
 
   return data;
 }
 
-export async function createExam(formData: FormData) {
-  const supabase = await createClient();
+export async function createCategory(formData: FormData) {
+  const supabase = await createClient(); // Ensure client
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('Unauthorized');
-  
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   if (profile?.role !== 'admin') throw new Error('Forbidden');
 
-  const rawData = {
-    title: formData.get('title') as string,
-    slug: formData.get('slug') as string,
-    description: formData.get('description') as string,
-  };
+  const name = formData.get('name') as string;
+  const slug = formData.get('slug') as string || name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
 
-  const validatedData = ExamSchema.parse(rawData);
-
-  const { error } = await supabase.from('exams').insert(validatedData);
+  const { error } = await supabase
+    .from('career_categories')
+    .insert({ name, slug });
 
   if (error) {
-    console.error('Error creating exam:', error);
-    throw new Error('Failed to create exam');
+    console.error('Error creating category:', error);
+    throw new Error('Failed to create category');
   }
 
+  revalidatePath('/admin/content/careers/categories');
 }
 
-export async function updateExam(formData: FormData) {
+export async function updateCategory(formData: FormData) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('Unauthorized');
-
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   if (profile?.role !== 'admin') throw new Error('Forbidden');
 
   const id = formData.get('id') as string;
   const rawData = {
-    title: formData.get('title') as string,
+    name: formData.get('name') as string,
     slug: formData.get('slug') as string,
-    description: formData.get('description') as string,
   };
 
-  const validatedData = ExamSchema.partial().parse(rawData);
+  const validatedData = CategorySchema.partial().parse(rawData);
 
   const { error } = await supabase
-    .from('exams')
+    .from('career_categories')
     .update(validatedData)
     .eq('id', id);
 
   if (error) {
-    console.error('Error updating exam:', error);
-    throw new Error('Failed to update exam');
+    console.error('Error updating category:', error);
+    throw new Error('Failed to update category');
   }
 
-  revalidatePath('/admin/exams');
+  revalidatePath('/admin/content/careers/categories');
 }
 
-export async function deleteExam(id: string) {
+export async function deleteCategory(id: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('Unauthorized');
-
   const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
   if (profile?.role !== 'admin') throw new Error('Forbidden');
 
   const { error } = await supabase
-    .from('exams')
+    .from('career_categories')
     .delete()
     .eq('id', id);
 
   if (error) {
-    console.error('Error deleting exam:', error);
-    throw new Error('Failed to delete exam');
+    console.error('Error deleting category:', error);
+    throw new Error('Failed to delete category');
   }
 
-  revalidatePath('/admin/exams');
+  revalidatePath('/admin/content/careers/categories');
 }

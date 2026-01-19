@@ -1,12 +1,9 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { createClient } from '@/utils/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Plus, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { Trash2, Plus } from 'lucide-react';
+import { getCategories, createCategory, deleteCategory, updateCategory } from '@/actions/categories';
+import { EditDialog } from "@/components/admin/EditDialog";
 
 interface Category {
   id: string;
@@ -14,88 +11,52 @@ interface Category {
   slug: string;
 }
 
-export default function CategoriesAdminPage() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [newCategory, setNewCategory] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const supabase = createClient();
-      const { data } = await supabase.from('career_categories').select('*').order('name');
-      if (data) setCategories(data);
-      setLoading(false);
-    };
-    fetchCategories();
-  }, [refreshTrigger]);
-
-  const handleAdd = async () => {
-    if (!newCategory.trim()) return;
-    const slug = newCategory.toLowerCase().replace(/ /g, '-').replace(/[^\w-]/g, '');
-    const supabase = createClient();
-    
-    const { error } = await supabase.from('career_categories').insert([{ name: newCategory, slug }]);
-    
-    if (error) {
-      toast.error('Failed to add category');
-    } else {
-      toast.success('Category added');
-      setNewCategory('');
-      setRefreshTrigger(prev => prev + 1);
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure?')) return;
-    const supabase = createClient();
-    const { error } = await supabase.from('career_categories').delete().eq('id', id);
-    if (error) toast.error('Failed to delete');
-    else {
-      toast.success('Deleted');
-      setRefreshTrigger(prev => prev + 1);
-    }
-  };
+export default async function CategoriesAdminPage() {
+  const categories = await getCategories() as Category[];
 
   return (
     <div className="p-8 max-w-4xl">
       <h1 className="text-2xl font-bold mb-6">Manage Career Categories</h1>
       
-      <div className="flex gap-4 mb-8">
-        <Input 
-          placeholder="New Category Name" 
-          value={newCategory} 
-          onChange={(e) => setNewCategory(e.target.value)} 
-        />
-        <Button onClick={handleAdd}><Plus className="w-4 h-4 mr-2" /> Add</Button>
-      </div>
+      <form action={createCategory} className="flex gap-4 mb-8">
+        <Input name="name" placeholder="New Category Name" required />
+        <Button type="submit"><Plus className="w-4 h-4 mr-2" /> Add</Button>
+      </form>
 
-      {loading ? (
-        <Loader2 className="animate-spin" />
-      ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Slug</TableHead>
-              <TableHead>Actions</TableHead>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Slug</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {categories.map((cat) => (
+            <TableRow key={cat.id}>
+              <TableCell className="font-medium">{cat.name}</TableCell>
+              <TableCell className="text-zinc-500">{cat.slug}</TableCell>
+              <TableCell className="text-right">
+                <div className="flex justify-end gap-2">
+                  <EditDialog item={cat} type="category" action={updateCategory} />
+                  <form action={deleteCategory.bind(null, cat.id)}>
+                    <Button variant="ghost" size="sm" type="submit">
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </Button>
+                  </form>
+                </div>
+              </TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {categories.map((cat) => (
-              <TableRow key={cat.id}>
-                <TableCell className="font-medium">{cat.name}</TableCell>
-                <TableCell className="text-zinc-500">{cat.slug}</TableCell>
-                <TableCell>
-                  <Button variant="ghost" size="sm" onClick={() => handleDelete(cat.id)}>
-                    <Trash2 className="w-4 h-4 text-red-500" />
-                  </Button>
-                </TableCell>
+          ))}
+          {categories.length === 0 && (
+             <TableRow>
+                  <TableCell colSpan={3} className="text-center py-8 text-zinc-500">
+                      No categories found.
+                  </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 }

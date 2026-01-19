@@ -3,10 +3,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Plus, Trash2 } from 'lucide-react';
-import { getPosts, createPost, deletePost } from '@/actions/cms';
+import { EditDialog } from '@/components/admin/EditDialog';
+import { getPosts, createPost, deletePost, updatePost } from '@/actions/cms';
+
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  created_at: string;
+  status: string;
+}
 
 export default async function CMSPage() {
-  const posts = await getPosts();
+  const posts = await getPosts() as Post[];
 
   return (
     <div className="p-8">
@@ -37,7 +46,7 @@ export default async function CMSPage() {
                      </tr>
                   </thead>
                   <tbody className="divide-y">
-                     {posts.map((post: any) => (
+                     {posts.map((post) => (
                         <tr key={post.id} className="hover:bg-zinc-50/50">
                            <td className="p-4 font-medium">{post.title}</td>
                            <td className="p-4 text-zinc-600">{post.slug}</td>
@@ -49,6 +58,7 @@ export default async function CMSPage() {
                            </td>
                            <td className="p-4 text-right">
                               <div className="flex justify-end gap-2">
+                                <EditDialog item={post} type="post" action={updatePost} />
                                  <form action={deletePost.bind(null, post.id)}>
                                      <Button variant="ghost" size="icon"><Trash2 className="w-4 h-4 text-red-500" /></Button>
                                  </form>
