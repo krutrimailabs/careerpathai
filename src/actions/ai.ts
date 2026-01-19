@@ -47,7 +47,7 @@ export async function generateContent(
   // 4. Call OpenAI
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o', // Preferred for reasoning, fallback to gpt-4 or gpt-3.5-turbo if needed per keys
+      model: 'gpt-4o-mini', // Cost-effective model for high-quality content generation
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'system', content: contextMessage },
